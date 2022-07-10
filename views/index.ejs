@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="rzp-button1">Pay</button>
+    <script>
+      document.getElementById("rzp-button1").addEventListener("click", (e) => {
+        axios.post("/createOrder").then((info) => {
+          var options = {
+            key: "Ithe aapli key id takavi", // Enter the Key ID generated from the Dashboard
+            currency: "INR",
+            name: "Om Kadam",
+            description: "Test Transaction",
+            image:
+              "https://i1.sndcdn.com/artworks-HHQ38rycf6pd3p8F-4untDg-t500x500.jpg",
+            order_id: info.data.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+            prefill: {
+              name: "Johnny Sins",
+              email: "johnysins@tube.com",
+              contact: "9999999999",
+            },
+            notes: {
+              address: "Razorpay Corporate Office",
+            },
+            theme: {
+              color: "#3399cc",
+            },
+          };
+          var rzp1 = new Razorpay(options);
+          rzp1.open();
+          e.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
